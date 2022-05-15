@@ -18,9 +18,10 @@ const Intern = require('./lib/Intern');
 // "The path.resolve() method resolves a sequence of paths or path segments into an absolute path."
 const OUTPUT_DIR = path.resolve(__dirname, "dist");
 //console.log(OUTPUT_DIR);
+
 // file storage location and name
 // from Node.js docs -
 // "The path.join() method joins all given path segments together using the platform-specific separator as a delimiter,
-// then normalizes the resulting path.""
+// then normalizes the resulting path."
 const htmlOutputPath = path.join(OUTPUT_DIR, "teaminfo.html");
-console.log(htmlOutputPath);
+//console.log(htmlOutputPath);
