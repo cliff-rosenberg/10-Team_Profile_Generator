@@ -1,0 +1,28 @@
+{
+  "name": "10-team_profile_generator",
+  "version": "1.0.0",
+  "description": "A Node command-line app that generates a HTML file that displays a summary of the info entered ",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --verbose test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cliff-rosenberg/10-Team_Profile_Generator.git"
+  },
+  "author": "Cliff Rosenberg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cliff-rosenberg/10-Team_Profile_Generator/issues"
+  },
+  "homepage": "https://github.com/cliff-rosenberg/10-Team_Profile_Generator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
+}
