@@ -30,70 +30,185 @@ const htmlOutputPath = path.join(OUTPUT_DIR, "teaminfo.html");
 const team = [];
 const idArray = [];
 
-// ask for team memners info, Manager first then others
-const userInquire = () => {
+// ask for team Manager info
+// object is (name, id, email, officeNumber)
+const getManager = () => {
         return inquirer.prompt([
                 {
+                    name: 'managerName',
                     type: 'input',
                     message: 'Enter Team Manager Name: ',
-                    name: 'managerName',
+                    
                 },
                 {
-                    type: 'input',
-                    message: 'Enter Team Manager Employee ID: ',
                     name: 'managerId',
+                    type: 'input',
+                    message: 'Enter Team Manager Employee ID: ',  
                 },
                 {
+                    name: 'managerEmail',
                     type: 'input',
                     message: 'Enter Team Manager Email: ',
-                    name: 'managerEmail',
                 },
                 {
+                    name: 'managerOfficeNum',
                     type: 'input',
                     message: 'Enter Team Manager Office Number: ',
-                    name: 'managerOfficeNum',
                 },
-            ]).then((response) => {
-                    // assign input data to manager Object
-                    const teamManager = new Manager(response.managerId, response.managerName, response.managerEmail, response.managerOfficeNum);
-                    team.push(teamManager);
-                    idArray.push(response.managerId);
-                    // enter other team member data
-                    otherTeamInput();
-                })
+            ])
 };// end inquirer function
 
 // ask to add other team members (Engineer or Intern)
 const otherTeamInput = () => {
         return inquirer.prompt([
                 {
+                name: 'input',
                 type: 'list',
                 message: 'What would you like to do?',
-                choices: ['Add Engineer','Add Intern','Done'],
-                name: 'input',
+                choices: ['Add an Engineer', 'Add an Intern', 'Done'],
                 },
-            ]).then((response) => {
-                    if (response.input === 'Add Engineer') {
-                        addEngineer()
-                    }
-                    if (response.input === 'Add Intern') {
-                        addIntern()
-                    }
-                    if (response.input === 'Done') {
-                        writeToFile()
-                    }
-                })
+            ])
 };// end inquirer function
 
-const addEngineer = (id,name,email,github) => {
-    
+// Engineer object is (name, id, email, github)
+const addEngineer = () => {
+        return inquirer.prompt([
+            {
+                name: 'engineerName',
+                type: 'input',
+                message: 'Enter Engineer name: ',
+            },
+            {
+                name: 'engineerId',
+                type: 'input',
+                message: 'Enter Engineer ID number: ',
+                validate: data => {
+                    const test = data.match(/^[1-9]\d*$/)
+                    if (test) {
+                        if (idArray.includes(data)) {
+                            return "This ID is already in use. Please select a different ID."
+                        } else {
+                            return true
+                        }
+                        };
+                        return "The ID number must be greater than zero!"
+                    }
+            },
+            {
+                name: 'engineerEmail',
+                type: 'input',
+                message: 'Enter Engineer Email address: ',
+            },
+            {
+                name: 'engineerGithub',
+                type: 'input',
+                message: 'Enter the GitHub username: ',
+            
+            },
+            ])
+    };//end addEngineer()
+
+// Intern object is (name, id, email, school)
+const addIntern = () => {
+        return inquirer.prompt([
+            {
+                name: 'internName',
+                type: 'input',
+                message: 'Intern Name: ',
+            },
+            {
+                name: 'internId',
+                type: 'input',
+                message: 'Intern ID: ',
+                validate: data => {
+                    const test = data.match(/^[1-9]\d*$/)
+                    if (test) {
+                        if (idArray.includes(data)) {
+                            return "This ID is already in use. Please select a different ID."
+                        } else {
+                            return true;
+                        }
+                    }
+                    return "ID's should be greater than zero."
+                }
+            },
+            {
+                name: 'internEmail',
+                type: 'input',
+                message: 'Intern Email: ',
+                
+            },
+            {
+                name: 'internSchool',
+                type: 'input',
+                message: 'Intern School: ',
+                
+            },
+            ])
+    };//end addIntern()
+
+// write HTML file out after data has been collected
+const writeToFile = () => {
+    // check if file location exists,
+    // if not present then create directory and then run the function 
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+        };// end if
+    fs.writeFileSync(htmlOutputPath,renderHtml(team),"utf-8");
+    console.log("File teaminfo.html has been written out sucessfully");
+
+    };//end writeToFile()
+
+//main function of app
+const doApp = async () => {
+    let myInput;
+    await getManager().then((response) => {
+        // assign input data to manager Object
+        const teamManager = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOfficeNum);
+        // push on to team[] global array
+        team.push(teamManager);
+        // push id on to idArray[] global array
+        idArray.push(response.managerId);
+        console.log(team);
+    })//end first await
+    do {
+        myInput = await otherTeamInput().then((response) => {
+            if (response.input === 'Add an Engineer') {
+                return "engineer";
+            }
+            if (response.input === 'Add an Intern') {
+                return "intern";
+            }
+            if (response.input === 'Done') {
+                return "done";
+            }
+        });
+        if (myInput === "engineer") {
+            await addEngineer().then((response) => {
+                newEngineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub);
+                // push on to team[] global array
+                team.push(newEngineer);
+                // push id on to idArray[] global array
+                idArray.push(response.engineerId);
+                })
+            };//end addEngineer()
+        if (myInput === "intern") {
+            await addIntern().then((response) => {
+                newIntern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool)
+                // push on to team[] global array
+                team.push(newIntern);
+                // push id on to idArray[] global array
+                idArray.push(response.intId);
+            })
+        };//end addIntern()
+    }
+    while (myInput != "done");
+    console.log(team);
+    // write out file
+    // writeToFile();
 };
 
-//init of app
-const init = () => {
-    userInquire();
-};
 // ****
 // start app here
 // ****
-init();
+doApp();
