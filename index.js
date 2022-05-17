@@ -85,7 +85,7 @@ const addEngineer = () => {
                 type: 'input',
                 message: 'Enter Engineer ID number: ',
                 validate: data => {
-                    const test = data.match(/^[1-9]\d*$/)
+                    const test = data.match(/^[1-9]\d*$/);
                     if (test) {
                         if (idArray.includes(data)) {
                             return "This ID is already in use. Please select a different ID."
@@ -105,7 +105,6 @@ const addEngineer = () => {
                 name: 'engineerGithub',
                 type: 'input',
                 message: 'Enter the GitHub username: ',
-            
             }
             ])
     };//end addEngineer()
@@ -116,14 +115,14 @@ const addIntern = () => {
             {
                 name: 'internName',
                 type: 'input',
-                message: 'Intern Name: ',
+                message: 'Enter Intern Name: ',
             },
             {
                 name: 'internId',
                 type: 'input',
-                message: 'Intern ID: ',
+                message: 'Enter Intern ID number: ',
                 validate: data => {
-                    const test = data.match(/^[1-9]\d*$/)
+                    const test = data.match(/^[1-9]\d*$/);
                     if (test) {
                         if (idArray.includes(data)) {
                             return "This ID is already in use. Please select a different ID."
@@ -131,20 +130,18 @@ const addIntern = () => {
                             return true;
                         }
                     }
-                    return "ID's should be greater than zero."
+                    return "The ID number must be greater than zero!"
                 }
             },
             {
                 name: 'internEmail',
                 type: 'input',
-                message: 'Intern Email: ',
-                
+                message: 'Intern email address: ',
             },
             {
                 name: 'internSchool',
                 type: 'input',
-                message: 'Intern School: ',
-                
+                message: 'Intern school name: ',
             },
             ])
     };//end addIntern()
@@ -211,6 +208,6 @@ const doApp = async () => {
 };
 
 // ****
-// start app here
+// Start the app here
 // ****
 doApp();
