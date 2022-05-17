@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 // HTML generator
-const renderHtml = require('./src/htmlRender');
+//const renderHtml = require('./src/htmlRender');
 
 // include classes here
 const Employee = require('./lib/Employee');
@@ -164,12 +164,12 @@ const doApp = async () => {
     let myInput;
     await getManager().then((response) => {
         // assign input data to manager Object
-        const teamManager = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOfficeNum);
+        //const teamManager = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOfficeNum);
         // push on to team[] global array
-        team.push(teamManager);
+        team.push(new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOfficeNum));
         // push id on to idArray[] global array
         idArray.push(response.managerId);
-        console.log(team);
+        //console.log(team);
     })//end first await
     do {
         myInput = await otherTeamInput().then((response) => {
@@ -185,25 +185,28 @@ const doApp = async () => {
         });
         if (myInput === "engineer") {
             await addEngineer().then((response) => {
-                newEngineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub);
+                //newEngineer = new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub);
                 // push on to team[] global array
-                team.push(newEngineer);
+                team.push(new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub));
                 // push id on to idArray[] global array
                 idArray.push(response.engineerId);
                 })
             };//end addEngineer()
         if (myInput === "intern") {
             await addIntern().then((response) => {
-                newIntern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool)
+                //newIntern = new Intern(response.internName, response.internId, response.internEmail, response.internSchool);
                 // push on to team[] global array
-                team.push(newIntern);
+                team.push(new Intern(response.internName, response.internId, response.internEmail, response.internSchool));
                 // push id on to idArray[] global array
                 idArray.push(response.intId);
             })
         };//end addIntern()
     }
     while (myInput != "done");
-    console.log(team);
+    team.forEach((object, index) => {
+        console.log(object);
+        console.log(`is at ${index} in array.`);
+    });
     // write out file
     // writeToFile();
 };
