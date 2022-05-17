@@ -7,23 +7,23 @@
 Link: [MIT License](https://opensource.org/licenses/MIT)
 
 ## Description:
-  TODO
+  This is a Node.js command-line JavaScript app that takes information about employees on a software engineering team, then generates a HTML webpage to display a summary for each team member. It also has unit tests of the Objects used to store the team member's information using Jest.
   
 ## Installation:
-  TODO
+  There is no install needed, the app was run locally and a screencapture was produced to demonstate the app's functions and testing results.
 
-## Screenshot
+## Screenshot/Video
 
-![Screenshot]()
+![Walk-Throught video on YouTube](https://youtu.be/rUFg8_KWH50)
 
 ## Usage:
-  TODO
+  The app runs form the command line. All the requirements are installed by typing "npm install' prior to launching the main app by typing "node index.js" after the required libraries have installed.
 
 ## Contributing:
   [Contributor Covenant](https://www.contributor-covenant.org/)
 
 ## Testing
-  TODO
+  Testing of the app's Objects is provided by the Jest testing suite. Makes sure Jest is installed, then tyep "npm test" to run through the Object testing.
 
 ## Additional Info:
 - Github: [cliff-rosenberg](https://github.com/cliff-rosenberg)
