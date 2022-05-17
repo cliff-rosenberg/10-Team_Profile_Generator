@@ -14,7 +14,7 @@ Link: [MIT License](https://opensource.org/licenses/MIT)
 
 ## Screenshot/Video
 
-Link to walk-throught video on YouTube[https://youtu.be/rUFg8_KWH50](https://youtu.be/rUFg8_KWH50)
+Link to walk-throught video on YouTube - [https://youtu.be/rUFg8_KWH50](https://youtu.be/rUFg8_KWH50)
 
 ## Usage:
   The app runs form the command line. All the requirements are installed by typing "npm install' prior to launching the main app by typing "node index.js" after the required libraries have installed.
