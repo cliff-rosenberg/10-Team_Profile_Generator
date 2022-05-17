@@ -4,8 +4,14 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 
+// define global varaibles here
+const team = [];
+const idArray = [];
+
 // HTML generator
-//const renderHtml = require('./src/htmlRender');
+// exports doHtml() function
+// pass team[] array into it when referenced
+const renderHtml = require('./src/htmlRender');
 
 // include classes here
 const Employee = require('./lib/Employee');
@@ -25,10 +31,6 @@ const OUTPUT_DIR = path.resolve(__dirname, "dist");
 // then normalizes the resulting path."
 const htmlOutputPath = path.join(OUTPUT_DIR, "teaminfo.html");
 //console.log(htmlOutputPath);
-
-// define global varaibles here
-const team = [];
-const idArray = [];
 
 // ask for team Manager info
 // object is (name, id, email, officeNumber)
@@ -66,7 +68,7 @@ const otherTeamInput = () => {
                 type: 'list',
                 message: 'What would you like to do?',
                 choices: ['Add an Engineer', 'Add an Intern', 'Done'],
-                },
+                }
             ])
 };// end inquirer function
 
@@ -104,7 +106,7 @@ const addEngineer = () => {
                 type: 'input',
                 message: 'Enter the GitHub username: ',
             
-            },
+            }
             ])
     };//end addEngineer()
 
@@ -149,15 +151,15 @@ const addIntern = () => {
 
 // write HTML file out after data has been collected
 const writeToFile = () => {
+    const payload = renderHtml.doHtml(team);
     // check if file location exists,
     // if not present then create directory and then run the function 
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR)
         };// end if
-    fs.writeFileSync(htmlOutputPath,renderHtml(team),"utf-8");
-    console.log("File teaminfo.html has been written out sucessfully");
-
-    };//end writeToFile()
+    fs.writeFileSync(htmlOutputPath, payload, "utf-8");
+    console.log(`File ${htmlOutputPath} has been written out sucessfully`);
+};//end writeToFile()
 
 //main function of app
 const doApp = async () => {
@@ -203,12 +205,9 @@ const doApp = async () => {
         };//end addIntern()
     }
     while (myInput != "done");
-    team.forEach((object, index) => {
-        console.log(object);
-        console.log(`is at ${index} in array.`);
-    });
+    //console.log(`${renderHtml.doHtml(team)}`)
     // write out file
-    // writeToFile();
+    writeToFile();
 };
 
 // ****
