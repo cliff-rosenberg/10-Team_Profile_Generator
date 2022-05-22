@@ -23,7 +23,7 @@ Screenshot of sample rendered 'teaminfo.html' file output:
 
 ## Usage-
 
-  The app runs from the command line using Node. All the requirements are installed by typing "npm install' in a terminal window prior to launching the main app. Launch the main app by typing "node index.js" in terminal window after the required libraries have installed.
+  The app runs from the command line using Node. All the requirements are installed by typing 'npm install' in a terminal window prior to launching the main app. Launch the main app by typing 'node index.js' in terminal window after the required libraries have installed.
 
 ## Contributing-
 
@@ -31,7 +31,7 @@ Screenshot of sample rendered 'teaminfo.html' file output:
 
 ## Testing-
 
-  Testing of the app's Objects is provided by the Jest testing suite. Makes sure Jest is installed, then tyep "npm test" to run through the Object testing.
+  Testing of the app's Objects is provided by the [Jest](https://jestjs.io/) testing suite. Makes sure Jest is installed, then type 'npm test' to run through the Object testing.
 
 ## Additional Info-
 
