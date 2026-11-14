@@ -20,9 +20,9 @@
   },
   "homepage": "https://github.com/cliff-rosenberg/10-Team_Profile_Generator#readme",
   "dependencies": {
-    "inquirer": "^8.2.4"
+    "inquirer": "^14.3.0"
   },
   "devDependencies": {
-    "jest": "^28.1.0"
+    "jest": "^30.5.2"
   }
 }
